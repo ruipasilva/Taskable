@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     
+    static let tag: String? = "Home"
+    
     @EnvironmentObject var dataController: DataController
     
     var body: some View {
@@ -20,6 +22,28 @@ struct HomeView: View {
                 }
             }
             .navigationTitle("Home")
+            .toolbar {
+                ToolbarItem {
+
+                        Menu {
+                            Section {
+                            Button(action: { }) {
+                                Text("Optimised")
+                            }
+                            }
+                            Button(action: { }) {
+                                Text("Date")
+                            }
+                            Button(action: { }) {
+                                Text("Title")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle")
+                        }
+                    
+                }
+            }
+            
         }
     }
 }
