@@ -13,6 +13,9 @@
 		694948A525C9C6BA0049C0B1 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 694948A425C9C6BA0049C0B1 /* Colors.xcassets */; };
 		694B844B25CA00A8009BE75F /* ProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694B844A25CA00A8009BE75F /* ProjectEditView.swift */; };
 		694B844E25CAEA98009BE75F /* ClosedProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694B844D25CAEA98009BE75F /* ClosedProjectsView.swift */; };
+		694B845125CB206E009BE75F /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694B845025CB206E009BE75F /* NewProjectView.swift */; };
+		694B845425CDAC14009BE75F /* Sequence-Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694B845325CDAC14009BE75F /* Sequence-Sorting.swift */; };
+		694B845725D0681C009BE75F /* ProjectsEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694B845625D0681C009BE75F /* ProjectsEmptyView.swift */; };
 		695D32E825C85F530099C1D3 /* TaskableApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695D32E725C85F530099C1D3 /* TaskableApp.swift */; };
 		695D32EA25C85F530099C1D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695D32E925C85F530099C1D3 /* ContentView.swift */; };
 		695D32EF25C85F560099C1D3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 695D32EE25C85F560099C1D3 /* Preview Assets.xcassets */; };
@@ -34,6 +37,9 @@
 		694948A425C9C6BA0049C0B1 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		694B844A25CA00A8009BE75F /* ProjectEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditView.swift; sourceTree = "<group>"; };
 		694B844D25CAEA98009BE75F /* ClosedProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedProjectsView.swift; sourceTree = "<group>"; };
+		694B845025CB206E009BE75F /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
+		694B845325CDAC14009BE75F /* Sequence-Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence-Sorting.swift"; sourceTree = "<group>"; };
+		694B845625D0681C009BE75F /* ProjectsEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsEmptyView.swift; sourceTree = "<group>"; };
 		695D32E425C85F530099C1D3 /* Taskable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		695D32E725C85F530099C1D3 /* TaskableApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskableApp.swift; sourceTree = "<group>"; };
 		695D32E925C85F530099C1D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -92,6 +98,9 @@
 				695D32E925C85F530099C1D3 /* ContentView.swift */,
 				695D330A25C8800B0099C1D3 /* HomeView.swift */,
 				695D331B25C881E60099C1D3 /* ProjectsView.swift */,
+				694B845625D0681C009BE75F /* ProjectsEmptyView.swift */,
+				694B845325CDAC14009BE75F /* Sequence-Sorting.swift */,
+				694B845025CB206E009BE75F /* NewProjectView.swift */,
 				694B844D25CAEA98009BE75F /* ClosedProjectsView.swift */,
 				6949489E25C9B5E50049C0B1 /* Binding-OnChange.swift */,
 				6949489B25C9AD780049C0B1 /* ItemRowView.swift */,
@@ -201,9 +210,12 @@
 				6949489C25C9AD780049C0B1 /* ItemRowView.swift in Sources */,
 				695D330B25C8800B0099C1D3 /* HomeView.swift in Sources */,
 				694B844B25CA00A8009BE75F /* ProjectEditView.swift in Sources */,
+				694B845725D0681C009BE75F /* ProjectsEmptyView.swift in Sources */,
 				6949489F25C9B5E50049C0B1 /* Binding-OnChange.swift in Sources */,
 				695D32E825C85F530099C1D3 /* TaskableApp.swift in Sources */,
+				694B845125CB206E009BE75F /* NewProjectView.swift in Sources */,
 				695D331F25C8ACB60099C1D3 /* Item-CoreDataHelpers.swift in Sources */,
+				694B845425CDAC14009BE75F /* Sequence-Sorting.swift in Sources */,
 				695D332225C8AEAF0099C1D3 /* Project-CoredDataHelpers.swift in Sources */,
 				695D332525C9A40E0099C1D3 /* ItemEditView.swift in Sources */,
 			);

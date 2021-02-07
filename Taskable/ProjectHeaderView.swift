@@ -22,8 +22,7 @@ struct ProjectHeaderView: View {
         
                 NavigationLink(destination: ProjectEditView(project: project)) {
                     Image(systemName: "pencil")
-                        .font(.title3)
-                        .padding(.vertical)
+                        .imageScale(.large)
                 }
             }
         }

@@ -22,28 +22,6 @@ struct HomeView: View {
                 }
             }
             .navigationTitle("Home")
-            .toolbar {
-                ToolbarItem {
-
-                        Menu {
-                            Section {
-                            Button(action: { }) {
-                                Text("Optimised")
-                            }
-                            }
-                            Button(action: { }) {
-                                Text("Date")
-                            }
-                            Button(action: { }) {
-                                Text("Title")
-                            }
-                        } label: {
-                            Image(systemName: "ellipsis.circle")
-                        }
-                    
-                }
-            }
-            
         }
     }
 }

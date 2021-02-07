@@ -1,24 +1,24 @@
 //
-//  ProjectEditView.swift
+//  NewProjectView.swift
 //  Taskable
 //
-//  Created by Rui Silva on 02/02/2021.
+//  Created by Rui Silva on 03/02/2021.
 //
 
 import SwiftUI
 
-struct ProjectEditView: View {
+struct NewProjectView: View {
     
     let project: Project
     
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var managedObjectContext
     
     @EnvironmentObject var dataController: DataController
     
     @State private var title: String
     @State private var detail: String
     @State private var color: String
-    
     @State private var showingDeleteConfirmation = false
     
     let colorColumns = [
@@ -32,13 +32,13 @@ struct ProjectEditView: View {
         _detail = State(wrappedValue: project.projectDetail)
         _color = State(wrappedValue: project.projectColor)
     }
-     
     var body: some View {
         Form {
-            Section(header: Text("Basic settings")) {
-                TextField("Project name", text: $title)
-                TextField("Description of this project", text: $detail)
+            Section(header: Text("Basic Settings")) {
+                TextField("Project Name", text: $title.onChange(update))
+                TextField("Project Description", text: $detail.onChange(update))
             }
+            
             Section(header: Text("Project Color")) {
                 LazyVGrid(columns: colorColumns) {
                     ForEach(Project.colors, id: \.self) { item in
@@ -61,50 +61,36 @@ struct ProjectEditView: View {
                 }
                 .padding(.vertical, 4)
             }
-            
-            Section(footer: Text("Closing a project moves it from Open to Closed; deleting it removes the project entirely")) {
-                Button(project.closed ? "Reopen this project" : "Close this project") {
-                    project.closed.toggle()
-                    update()
-                }
-                Button("Delete this Project") {
-                    showingDeleteConfirmation.toggle()
-                }
-                .accentColor(.red)
-            }
         }
         .navigationTitle("Edit Project")
-        .onDisappear(perform: update)
-            .alert(isPresented: $showingDeleteConfirmation) {
-                Alert(title: Text("Delete Project?"), message: Text("Are you sure you want to delete this project? You will also delete all its items."), primaryButton: .destructive(Text("Delete"), action: delete), secondaryButton: .cancel())
-            }
+        .onDisappear(perform: dataController.save)
         .toolbar {
             ToolbarItem {
                 Button {
                     presentationMode.wrappedValue.dismiss()
+                    withAnimation {
+                        let project = Project(context: managedObjectContext)
+                        project.closed = false
+                        project.creationDate = Date()
+                        dataController.save()
+                    }
                 } label: {
                     Text("Done")
                 }
             }
         }
-        
+
     }
+    
     func update() {
         project.title = title
         project.detail = detail
         project.color = color
-        dataController.save()
     }
-    
-    func delete() {
-        dataController.delete(project)
-        presentationMode.wrappedValue.dismiss()
-    }
-    
 }
 
-struct ProjectEditView_Previews: PreviewProvider {
+struct NewProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectEditView(project: Project.example )
+        NewProjectView(project: Project.example)
     }
 }

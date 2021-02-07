@@ -14,7 +14,12 @@ struct ProjectsView: View {
     
     let showClosedProjects: Bool
     
+    
     @State private var isShowingClosedTasks = false
+    @State private var isShowingSortOptions = false
+    
+    @State private var sortOrder = Item.SortOrder.optimised
+    
     
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -28,42 +33,47 @@ struct ProjectsView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(projects.wrappedValue) { project in
-                    Section(header: ProjectHeaderView(project: project)) {
-                        ForEach(project.projectItems) { item in
-                            ItemRowView(item: item)
-                        }
-                        .onDelete { offsets in
-                            let allItems = project.projectItems
-                            
-                            for offset in offsets {
-                                let item = allItems[offset]
-                                dataController.delete(item)
+            Group {
+                if projects.wrappedValue.isEmpty {
+                    ProjectsEmptyView()
+                } else {
+                    List {
+                        ForEach(projects.wrappedValue) { project in
+                            Section(header: ProjectHeaderView(project: project)) {
+                                ForEach(project.projectItems(using: sortOrder)) { item in
+                                    ItemRowView(project: project, item: item)
+                                }
+                                .onDelete { offsets in
+                                    let allItems = project.projectItems(using: sortOrder)
+                                    
+                                    for offset in offsets {
+                                        let item = allItems[offset]
+                                        dataController.delete(item)
+                                    }
+                                    dataController.save()
+                                }
+                                Button {
+                                    withAnimation {
+                                        let item = Item(context: managedObjectContext)
+                                        item.project = project
+                                        item.creationDate = Date()
+                                        dataController.save()
+                                    }
+                                }label: {
+                                    Label("Add New Item", systemImage: "plus")
+                                }
                             }
-                            dataController.save()
-                        }
-                        
-                        Button {
-                            withAnimation {
-                                let item = Item(context: managedObjectContext)
-                                item.project = project
-                                item.creationDate = Date()
-                                dataController.save()
-                            }
-                        }label: {
-                            Label("Add New Item", systemImage: "plus")
                         }
                     }
+                    .listStyle(InsetGroupedListStyle())
                 }
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle(showClosedProjects ? "Closed Tasks" : "Open Tasks")
+            .navigationTitle(showClosedProjects ? "Closed Tasks" : "Tasks")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
                         Button {
-                            
+                            isShowingSortOptions.toggle()
                         } label: {
                             Text("Sort")
                                 .padding(.horizontal, 4)
@@ -90,8 +100,18 @@ struct ProjectsView: View {
                     }
                 }
             }
+            .actionSheet(isPresented: $isShowingSortOptions) {
+                ActionSheet(title: Text("Sort items"), message: nil, buttons: [
+                    .default(Text("Optimized")) { sortOrder = .optimised },
+                    .default(Text("Creation Date")) { sortOrder = .creationDate },
+                    .default(Text("Title")) { sortOrder = .title }
+                ])
+            }
+            
+            ProjectsEmptyView()
         }
     }
+    
 }
 
 struct ProjectsView_Previews: PreviewProvider {
