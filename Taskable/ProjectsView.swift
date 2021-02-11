@@ -108,7 +108,7 @@ struct ProjectsView: View {
                 ])
             }
             
-            ProjectsEmptyView()
+            
         }
     }
     
