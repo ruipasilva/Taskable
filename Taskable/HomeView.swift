@@ -36,9 +36,19 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
+            if _projects.wrappedValue.isEmpty {
+                    HomeEmptyView()
+                } else {
             ScrollView {
                 VStack(alignment: .leading) {
+                    
+                    Text("Text")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
+                        .edgesIgnoringSafeArea(.all)
                     ScrollView(.horizontal, showsIndicators: false) {
+                        
                         LazyHGrid(rows: projectRows) {
                             ForEach(projects) { project in
                                 VStack(alignment: .leading) {
@@ -57,13 +67,14 @@ struct HomeView: View {
                                 .cornerRadius(10)
                                 .shadow(color: Color.black.opacity(0.2), radius: 5)
                             }
-                        }
+                        
+                    }
                         .padding([.horizontal, .top])
                         .fixedSize(horizontal: false, vertical: true)
                     }
                     
                     VStack(alignment: .leading) {
-                        list("Up Next", for: items.wrappedValue.prefix(3))
+                        list("Up next", for: items.wrappedValue.prefix(3))
                         list("More to explore", for: items.wrappedValue.dropFirst(3))
                     }
                     .padding(.horizontal)
@@ -73,8 +84,9 @@ struct HomeView: View {
             .navigationTitle("Home")
         }
     }
+        }
     
-    @ViewBuilder func list(_ title: String, for items: FetchedResults<Item>.SubSequence) -> some View {
+    @ViewBuilder func list(_ title: LocalizedStringKey, for items: FetchedResults<Item>.SubSequence) -> some View {
         if items.isEmpty {
             EmptyView()
         } else {

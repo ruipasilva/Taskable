@@ -62,12 +62,12 @@ struct ProjectEditView: View {
                 .padding(.vertical, 4)
             }
             
-            Section(footer: Text("Closing a project moves it from Open to Closed; deleting it removes the project entirely")) {
+            Section(footer: Text("Closing a project moves it from Open to Closed; deleting it removes the project entirely.")) {
                 Button(project.closed ? "Reopen this project" : "Close this project") {
                     project.closed.toggle()
                     update()
                 }
-                Button("Delete this Project") {
+                Button("Delete this project") {
                     showingDeleteConfirmation.toggle()
                 }
                 .accentColor(.red)
@@ -76,7 +76,7 @@ struct ProjectEditView: View {
         .navigationTitle("Edit Project")
         .onDisappear(perform: update)
             .alert(isPresented: $showingDeleteConfirmation) {
-                Alert(title: Text("Delete Project?"), message: Text("Are you sure you want to delete this project? You will also delete all its items."), primaryButton: .destructive(Text("Delete"), action: delete), secondaryButton: .cancel())
+                Alert(title: Text("Delete Project?"), message: Text("Are you sure you want to delete this project? You will also delete all the items it contains."), primaryButton: .destructive(Text("Delete"), action: delete), secondaryButton: .cancel())
             }
         .toolbar {
             ToolbarItem {

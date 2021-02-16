@@ -34,8 +34,8 @@ struct ItemEditView: View {
             Form {
                 Section(header: Text("Basic Settings")) {
                     
-                    TextField("Item Title", text: $title.onChange(update))
-                    TextField("Item Description", text: $detail.onChange(update))
+                    TextField("Item name", text: $title.onChange(update))
+                    TextField("Description", text: $detail.onChange(update))
                 }
                 Section(header: Text("Priority")) {
                     Picker("Priority", selection: $priority.onChange(update)) {
@@ -45,7 +45,7 @@ struct ItemEditView: View {
                     }.pickerStyle(SegmentedPickerStyle())
                 }
                 Section() {
-                    Toggle("Mark completed", isOn: $completed.onChange(update))
+                    Toggle("Mark Completed", isOn: $completed.onChange(update))
                 }
             }
             .navigationTitle("Edit Item")

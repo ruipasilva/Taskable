@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProjectsEmptyView: View {
     var body: some View {
-        Text("Please select something grom the menu to begin")
+        Text("Please select something from the menu to begin")
             .italic()
             .foregroundColor(.secondary)
     }
