@@ -32,6 +32,8 @@
 		695D331F25C8ACB60099C1D3 /* Item-CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695D331E25C8ACB60099C1D3 /* Item-CoreDataHelpers.swift */; };
 		695D332225C8AEAF0099C1D3 /* Project-CoredDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695D332125C8AEAF0099C1D3 /* Project-CoredDataHelpers.swift */; };
 		695D332525C9A40E0099C1D3 /* ItemEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695D332425C9A40E0099C1D3 /* ItemEditView.swift */; };
+		696B95ED25DD69050040AE0D /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696B95EC25DD69050040AE0D /* ItemListView.swift */; };
+		696B95F025DD6A2C0040AE0D /* ProjectSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696B95EF25DD6A2C0040AE0D /* ProjectSummaryView.swift */; };
 		69CE063525D1AEBB00799D32 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CE063425D1AEBB00799D32 /* Bundle-Decodable.swift */; };
 		69CE063B25D4393100799D32 /* Awards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CE063A25D4393100799D32 /* Awards.swift */; };
 		69CE063E25D43A7600799D32 /* AwardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CE063D25D43A7600799D32 /* AwardsView.swift */; };
@@ -73,6 +75,8 @@
 		695D331E25C8ACB60099C1D3 /* Item-CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item-CoreDataHelpers.swift"; sourceTree = "<group>"; };
 		695D332125C8AEAF0099C1D3 /* Project-CoredDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project-CoredDataHelpers.swift"; sourceTree = "<group>"; };
 		695D332425C9A40E0099C1D3 /* ItemEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEditView.swift; sourceTree = "<group>"; };
+		696B95EC25DD69050040AE0D /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
+		696B95EF25DD6A2C0040AE0D /* ProjectSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSummaryView.swift; sourceTree = "<group>"; };
 		69CE063425D1AEBB00799D32 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		69CE063A25D4393100799D32 /* Awards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Awards.swift; sourceTree = "<group>"; };
 		69CE063D25D43A7600799D32 /* AwardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsView.swift; sourceTree = "<group>"; };
@@ -114,27 +118,10 @@
 				695D32FF25C8724F0099C1D3 /* Taskable.entitlements */,
 				695D32E725C85F530099C1D3 /* TaskableApp.swift */,
 				695D32F725C85F820099C1D3 /* Main.xcdatamodeld */,
-				695D32FB25C862CF0099C1D3 /* DataController.swift */,
-				695D331E25C8ACB60099C1D3 /* Item-CoreDataHelpers.swift */,
-				695D332125C8AEAF0099C1D3 /* Project-CoredDataHelpers.swift */,
-				695D32E925C85F530099C1D3 /* ContentView.swift */,
-				695D330A25C8800B0099C1D3 /* HomeView.swift */,
-				695D331B25C881E60099C1D3 /* ProjectsView.swift */,
-				69CE063425D1AEBB00799D32 /* Bundle-Decodable.swift */,
-				694B845625D0681C009BE75F /* ProjectsEmptyView.swift */,
-				694B845325CDAC14009BE75F /* Sequence-Sorting.swift */,
-				694B845025CB206E009BE75F /* NewProjectView.swift */,
-				694B844D25CAEA98009BE75F /* ClosedProjectsView.swift */,
-				6949489E25C9B5E50049C0B1 /* Binding-OnChange.swift */,
-				694DE99E25DB2E2C0041547B /* HomeEmptyView.swift */,
-				6949489B25C9AD780049C0B1 /* ItemRowView.swift */,
-				695D332425C9A40E0099C1D3 /* ItemEditView.swift */,
-				694B844A25CA00A8009BE75F /* ProjectEditView.swift */,
-				694948A125C9C1E30049C0B1 /* ProjectHeaderView.swift */,
-				69CE063D25D43A7600799D32 /* AwardsView.swift */,
-				694DE9A325DB30AE0041547B /* Awards.json */,
-				69CE063A25D4393100799D32 /* Awards.swift */,
-				69CE064025D5817E00799D32 /* Color-Addition.swift */,
+				696B95F325DE86A50040AE0D /* Helpers */,
+				696B95F525DE86CC0040AE0D /* Views */,
+				696B960225DE875F0040AE0D /* JSON */,
+				696B95FF25DE87430040AE0D /* Models */,
 				694DE98D25DAE0F50041547B /* Localizable.strings */,
 				694DE98825DADF950041547B /* Localizable.stringsdict */,
 				695D331125C8812B0099C1D3 /* Assets.xcassets */,
@@ -159,6 +146,89 @@
 				695D330225C872780099C1D3 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		696B95F325DE86A50040AE0D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				695D32FB25C862CF0099C1D3 /* DataController.swift */,
+				69CE064025D5817E00799D32 /* Color-Addition.swift */,
+				69CE063425D1AEBB00799D32 /* Bundle-Decodable.swift */,
+				694B845325CDAC14009BE75F /* Sequence-Sorting.swift */,
+				6949489E25C9B5E50049C0B1 /* Binding-OnChange.swift */,
+				695D331E25C8ACB60099C1D3 /* Item-CoreDataHelpers.swift */,
+				695D332125C8AEAF0099C1D3 /* Project-CoredDataHelpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		696B95F525DE86CC0040AE0D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				695D32E925C85F530099C1D3 /* ContentView.swift */,
+				696B95FA25DE86FA0040AE0D /* HomeViews */,
+				696B95F825DE86DE0040AE0D /* ProjectViews */,
+				696B95FC25DE87120040AE0D /* ItemViews */,
+				69BA756C25DE8CF300D8AD71 /* OtherViews */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		696B95F825DE86DE0040AE0D /* ProjectViews */ = {
+			isa = PBXGroup;
+			children = (
+				694B844D25CAEA98009BE75F /* ClosedProjectsView.swift */,
+				696B95EF25DD6A2C0040AE0D /* ProjectSummaryView.swift */,
+				695D331B25C881E60099C1D3 /* ProjectsView.swift */,
+				694B845625D0681C009BE75F /* ProjectsEmptyView.swift */,
+				694B845025CB206E009BE75F /* NewProjectView.swift */,
+				694B844A25CA00A8009BE75F /* ProjectEditView.swift */,
+				694948A125C9C1E30049C0B1 /* ProjectHeaderView.swift */,
+			);
+			path = ProjectViews;
+			sourceTree = "<group>";
+		};
+		696B95FA25DE86FA0040AE0D /* HomeViews */ = {
+			isa = PBXGroup;
+			children = (
+				695D330A25C8800B0099C1D3 /* HomeView.swift */,
+				694DE99E25DB2E2C0041547B /* HomeEmptyView.swift */,
+			);
+			path = HomeViews;
+			sourceTree = "<group>";
+		};
+		696B95FC25DE87120040AE0D /* ItemViews */ = {
+			isa = PBXGroup;
+			children = (
+				696B95EC25DD69050040AE0D /* ItemListView.swift */,
+				6949489B25C9AD780049C0B1 /* ItemRowView.swift */,
+				695D332425C9A40E0099C1D3 /* ItemEditView.swift */,
+			);
+			path = ItemViews;
+			sourceTree = "<group>";
+		};
+		696B95FF25DE87430040AE0D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				69CE063A25D4393100799D32 /* Awards.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		696B960225DE875F0040AE0D /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				694DE9A325DB30AE0041547B /* Awards.json */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		69BA756C25DE8CF300D8AD71 /* OtherViews */ = {
+			isa = PBXGroup;
+			children = (
+				69CE063D25D43A7600799D32 /* AwardsView.swift */,
+			);
+			path = OtherViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,8 +320,10 @@
 				694DE99F25DB2E2D0041547B /* HomeEmptyView.swift in Sources */,
 				694B845725D0681C009BE75F /* ProjectsEmptyView.swift in Sources */,
 				6949489F25C9B5E50049C0B1 /* Binding-OnChange.swift in Sources */,
+				696B95ED25DD69050040AE0D /* ItemListView.swift in Sources */,
 				69CE063E25D43A7600799D32 /* AwardsView.swift in Sources */,
 				695D32E825C85F530099C1D3 /* TaskableApp.swift in Sources */,
+				696B95F025DD6A2C0040AE0D /* ProjectSummaryView.swift in Sources */,
 				694B845125CB206E009BE75F /* NewProjectView.swift in Sources */,
 				695D331F25C8ACB60099C1D3 /* Item-CoreDataHelpers.swift in Sources */,
 				694B845425CDAC14009BE75F /* Sequence-Sorting.swift in Sources */,
@@ -292,7 +364,8 @@
 				694DE9A725DC0EB40041547B /* pt-PT */,
 			);
 			name = Awards.json;
-			sourceTree = SOURCE_ROOT;
+			path = ../..;
+			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 

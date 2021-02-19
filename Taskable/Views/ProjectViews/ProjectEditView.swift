@@ -32,6 +32,16 @@ struct ProjectEditView: View {
         _detail = State(wrappedValue: project.projectDetail)
         _color = State(wrappedValue: project.projectColor)
     }
+    
+    var toolBarItemDone: some ToolbarContent {
+        ToolbarItem {
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                Text("Done")
+            }
+        }
+    }
      
     var body: some View {
         Form {
@@ -42,21 +52,7 @@ struct ProjectEditView: View {
             Section(header: Text("Project Color")) {
                 LazyVGrid(columns: colorColumns) {
                     ForEach(Project.colors, id: \.self) { item in
-                        ZStack {
-                            Color(item)
-                                .aspectRatio(1, contentMode: .fit)
-                                .cornerRadius(10)
-                            
-                            if item == color {
-                                Image(systemName: "checkmark.circle")
-                                    .foregroundColor(.white)
-                                    .font(.largeTitle)
-                            }
-                        }
-                        .onTapGesture {
-                            color = item
-                            update()
-                        }
+                        colorButton(for: item)
                     }
                 }
                 .padding(.vertical, 4)
@@ -79,13 +75,7 @@ struct ProjectEditView: View {
                 Alert(title: Text("Delete Project?"), message: Text("Are you sure you want to delete this project? You will also delete all the items it contains."), primaryButton: .destructive(Text("Delete"), action: delete), secondaryButton: .cancel())
             }
         .toolbar {
-            ToolbarItem {
-                Button {
-                    presentationMode.wrappedValue.dismiss()
-                } label: {
-                    Text("Done")
-                }
-            }
+            toolBarItemDone
         }
         
     }
@@ -99,6 +89,29 @@ struct ProjectEditView: View {
     func delete() {
         dataController.delete(project)
         presentationMode.wrappedValue.dismiss()
+    }
+    
+    func colorButton(for item: String) -> some View {
+        ZStack {
+            Color(item)
+                .aspectRatio(1, contentMode: .fit)
+                .cornerRadius(10)
+            
+            if item == color {
+                Image(systemName: "checkmark.circle")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+            }
+        }
+        .onTapGesture {
+            color = item
+            update()
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(
+            item == color ? [.isButton, .isSelected] : .isButton
+        )
+        .accessibilityLabel(LocalizedStringKey(item))
     }
     
 }

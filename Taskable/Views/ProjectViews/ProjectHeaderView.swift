@@ -12,21 +12,27 @@ struct ProjectHeaderView: View {
     @ObservedObject var project: Project
     
     var body: some View {
-        VStack {
-            HStack {
+        NavigationLink(destination: ProjectEditView(project: project)) {
+        HStack {
+            VStack(alignment: .leading) {
                 Text(project.projectTitle)
+                    .foregroundColor(.secondary)
                 
                 ProgressView(value: project.completionAmount)
                     .padding(.trailing)
                     .accentColor(Color(project.projectColor))
-        
-                NavigationLink(destination: ProjectEditView(project: project)) {
-                    Image(systemName: "pencil")
-                        .imageScale(.large)
-                }
+                
+            }
+            
+            
+                Image(systemName: "pencil")
+                    .imageScale(.large)
             }
         }
+        .padding()
+        .accessibilityElement(children: .combine)
     }
+    
 }
 
 struct ProjectHeaderView_Previews: PreviewProvider {
