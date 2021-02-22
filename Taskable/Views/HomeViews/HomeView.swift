@@ -23,8 +23,15 @@ struct HomeView: View {
     }
     
     init() {
+        // Contruct a fetch request to show the 10 highest-priority,
+        // incomplete items from open projects
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        request.predicate = NSPredicate(format: "completed = false")
+        
+        let completedPredicate = NSPredicate(format: "completed = false")
+        let openPredicate = NSPredicate(format: "project.closed = false")
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [completedPredicate, openPredicate])
+        
+        request.predicate = compoundPredicate
         
         request.sortDescriptors = [
             NSSortDescriptor(keyPath: \Item.priority, ascending: false)
@@ -34,18 +41,15 @@ struct HomeView: View {
         items = FetchRequest(fetchRequest: request)
     }
     
-//    var toolBarItemTrailing: some ToolbarContent {
-//        ToolbarItem(placement: .navigationBarTrailing) {
-//            HStack {
-//                Button {
-//                    try?dataController.createSampleData()
-//                } label: {
-//                    Text("Button")
-//                        .padding(.horizontal, 4)
-//                }
-//            }
-//        }
-//    }
+    var toolBarItemTrailing: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            HStack {
+                Button("Add Data") {
+                    try?dataController.createSampleData()
+                }
+            }
+        }
+    }
 
     
     var body: some View {
@@ -73,12 +77,11 @@ struct HomeView: View {
                 }
                 .background(Color.systemGroupedBackground.ignoresSafeArea())
                 .navigationTitle("Home")
-//                .toolbar {
-//                    toolBarItemTrailing
-//                }
+                .toolbar {
+                    toolBarItemTrailing
+                }
             }
         }
-        
     }
 }
 

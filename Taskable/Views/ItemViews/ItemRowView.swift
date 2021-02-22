@@ -9,13 +9,12 @@ import SwiftUI
 
 struct ItemRowView: View {
     
-    @ObservedObject var project: Project
     @ObservedObject var item: Item
     
     var icon: some View {
         if item.completed {
             return Image(systemName: "checkmark.circle")
-                .foregroundColor(Color(project.projectColor))
+                .foregroundColor(Color(item.project?.projectColor ?? "Light Blue"))
         } else if item.priority == 3 {
             return Image(systemName: "exclamationmark.octagon")
                 .foregroundColor(.red)
@@ -52,6 +51,7 @@ struct ItemRowView: View {
             } icon: {
                 icon.font(.title3)
             }
+    
         }
         .accessibilityLabel(label)
     }
@@ -59,6 +59,6 @@ struct ItemRowView: View {
 
 struct ItemRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemRowView(project: Project.example, item: Item.example)
+        ItemRowView(item: Item.example)
     }
 }

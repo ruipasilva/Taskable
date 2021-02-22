@@ -50,12 +50,12 @@
 		694B845025CB206E009BE75F /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		694B845325CDAC14009BE75F /* Sequence-Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence-Sorting.swift"; sourceTree = "<group>"; };
 		694B845625D0681C009BE75F /* ProjectsEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsEmptyView.swift; sourceTree = "<group>"; };
-		694DE98925DADF950041547B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = "portfolio-i18n/en.lproj/Localizable.stringsdict"; sourceTree = SOURCE_ROOT; };
-		694DE98E25DAE0F50041547B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "portfolio-i18n/en.lproj/Localizable.strings"; sourceTree = SOURCE_ROOT; };
-		694DE99125DB251C0041547B /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = "portfolio-i18n/hu.lproj/Localizable.strings"; sourceTree = SOURCE_ROOT; };
-		694DE99225DB251C0041547B /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hu; path = "portfolio-i18n/hu.lproj/Localizable.stringsdict"; sourceTree = SOURCE_ROOT; };
-		694DE99825DB28FC0041547B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "../portfolio-i18n/pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		694DE99925DB28FC0041547B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-PT"; path = "../portfolio-i18n/pt-PT.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		694DE98925DADF950041547B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = Taskable/Localizations/en.lproj/Localizable.stringsdict; sourceTree = SOURCE_ROOT; };
+		694DE98E25DAE0F50041547B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Taskable/Localizations/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		694DE99125DB251C0041547B /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = Taskable/Localizations/hu.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		694DE99225DB251C0041547B /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hu; path = Taskable/Localizations/hu.lproj/Localizable.stringsdict; sourceTree = SOURCE_ROOT; };
+		694DE99825DB28FC0041547B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		694DE99925DB28FC0041547B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-PT"; path = "pt-PT.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		694DE99E25DB2E2C0041547B /* HomeEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyView.swift; sourceTree = "<group>"; };
 		694DE9A225DB30AE0041547B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = en; path = en.lproj/Awards.json; sourceTree = "<group>"; };
 		694DE9A525DB30BC0041547B /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = hu; path = hu.lproj/Awards.json; sourceTree = "<group>"; };
@@ -115,18 +115,16 @@
 		695D32E625C85F530099C1D3 /* Taskable */ = {
 			isa = PBXGroup;
 			children = (
-				695D32FF25C8724F0099C1D3 /* Taskable.entitlements */,
-				695D32E725C85F530099C1D3 /* TaskableApp.swift */,
-				695D32F725C85F820099C1D3 /* Main.xcdatamodeld */,
-				696B95F325DE86A50040AE0D /* Helpers */,
+				69BA757225E3FC8300D8AD71 /* Configurations */,
+				69BA757125E3FC7B00D8AD71 /* Localizations */,
+				69BA757025E3FC7500D8AD71 /* Extensions */,
+				696B95F325DE86A50040AE0D /* Contollers */,
 				696B95F525DE86CC0040AE0D /* Views */,
-				696B960225DE875F0040AE0D /* JSON */,
 				696B95FF25DE87430040AE0D /* Models */,
-				694DE98D25DAE0F50041547B /* Localizable.strings */,
-				694DE98825DADF950041547B /* Localizable.stringsdict */,
+				696B960225DE875F0040AE0D /* JSON */,
+				695D32E725C85F530099C1D3 /* TaskableApp.swift */,
 				695D331125C8812B0099C1D3 /* Assets.xcassets */,
 				694948A425C9C6BA0049C0B1 /* Colors.xcassets */,
-				695D32F025C85F560099C1D3 /* Info.plist */,
 				695D32ED25C85F560099C1D3 /* Preview Content */,
 			);
 			path = Taskable;
@@ -148,18 +146,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		696B95F325DE86A50040AE0D /* Helpers */ = {
+		696B95F325DE86A50040AE0D /* Contollers */ = {
 			isa = PBXGroup;
 			children = (
 				695D32FB25C862CF0099C1D3 /* DataController.swift */,
-				69CE064025D5817E00799D32 /* Color-Addition.swift */,
-				69CE063425D1AEBB00799D32 /* Bundle-Decodable.swift */,
-				694B845325CDAC14009BE75F /* Sequence-Sorting.swift */,
-				6949489E25C9B5E50049C0B1 /* Binding-OnChange.swift */,
-				695D331E25C8ACB60099C1D3 /* Item-CoreDataHelpers.swift */,
-				695D332125C8AEAF0099C1D3 /* Project-CoredDataHelpers.swift */,
 			);
-			path = Helpers;
+			path = Contollers;
 			sourceTree = "<group>";
 		};
 		696B95F525DE86CC0040AE0D /* Views */ = {
@@ -177,9 +169,9 @@
 		696B95F825DE86DE0040AE0D /* ProjectViews */ = {
 			isa = PBXGroup;
 			children = (
+				695D331B25C881E60099C1D3 /* ProjectsView.swift */,
 				694B844D25CAEA98009BE75F /* ClosedProjectsView.swift */,
 				696B95EF25DD6A2C0040AE0D /* ProjectSummaryView.swift */,
-				695D331B25C881E60099C1D3 /* ProjectsView.swift */,
 				694B845625D0681C009BE75F /* ProjectsEmptyView.swift */,
 				694B845025CB206E009BE75F /* NewProjectView.swift */,
 				694B844A25CA00A8009BE75F /* ProjectEditView.swift */,
@@ -210,6 +202,8 @@
 		696B95FF25DE87430040AE0D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				695D331E25C8ACB60099C1D3 /* Item-CoreDataHelpers.swift */,
+				695D332125C8AEAF0099C1D3 /* Project-CoredDataHelpers.swift */,
 				69CE063A25D4393100799D32 /* Awards.swift */,
 			);
 			path = Models;
@@ -229,6 +223,36 @@
 				69CE063D25D43A7600799D32 /* AwardsView.swift */,
 			);
 			path = OtherViews;
+			sourceTree = "<group>";
+		};
+		69BA757025E3FC7500D8AD71 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				69CE064025D5817E00799D32 /* Color-Addition.swift */,
+				69CE063425D1AEBB00799D32 /* Bundle-Decodable.swift */,
+				694B845325CDAC14009BE75F /* Sequence-Sorting.swift */,
+				6949489E25C9B5E50049C0B1 /* Binding-OnChange.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		69BA757125E3FC7B00D8AD71 /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				694DE98D25DAE0F50041547B /* Localizable.strings */,
+				694DE98825DADF950041547B /* Localizable.stringsdict */,
+			);
+			path = Localizations;
+			sourceTree = "<group>";
+		};
+		69BA757225E3FC8300D8AD71 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				695D32F025C85F560099C1D3 /* Info.plist */,
+				695D32FF25C8724F0099C1D3 /* Taskable.entitlements */,
+				695D32F725C85F820099C1D3 /* Main.xcdatamodeld */,
+			);
+			path = Configurations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -491,12 +515,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Taskable/Taskable.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Taskable/Configurations/Taskable.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Taskable/Preview Content\"";
 				DEVELOPMENT_TEAM = 9FVDFCLP22;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Taskable/Info.plist;
+				INFOPLIST_FILE = Taskable/Configurations/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -514,12 +538,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Taskable/Taskable.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Taskable/Configurations/Taskable.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Taskable/Preview Content\"";
 				DEVELOPMENT_TEAM = 9FVDFCLP22;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Taskable/Info.plist;
+				INFOPLIST_FILE = Taskable/Configurations/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

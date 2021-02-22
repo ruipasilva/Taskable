@@ -13,13 +13,12 @@ struct ProjectsView: View {
     static let closedTag: String? = "Closed"
     
     let showClosedProjects: Bool
-    
-    
+
     @State private var isShowingClosedTasks = false
     @State private var isShowingSortOptions = false
+    @State private var itemsAreExpanded = false
     
     @State private var sortOrder = Item.SortOrder.optimised
-    
     
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -31,12 +30,12 @@ struct ProjectsView: View {
         
         projects = FetchRequest<Project>(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.creationDate, ascending: false)], predicate: NSPredicate(format: "closed = %d", showClosedProjects))  }
     
-    var ProjectsList: some View {
+    var projectsList: some View {
         List {
             ForEach(projects.wrappedValue) { project in
                 Section(header: ProjectHeaderView(project: project)) {
                     ForEach(project.projectItems(using: sortOrder)) { item in
-                        ItemRowView(project: project, item: item)
+                        ItemRowView(item: item)
                     }
                     .onDelete { offsets in
                         delete(offsets, from: project)
@@ -61,9 +60,11 @@ struct ProjectsView: View {
                     Text("Sort")
                         .padding(.horizontal, 4)
                 }
-                Button {
-                    addProject()
-                } label: {
+                Button(action: addProject) {
+                    // In iOS 14.3 VoiceOver has a glitch that reads the label "Add Project as "Add"
+                    // no matter what accessibility label we give this toobal button when using a label
+                    // As a result, when VoiceOver is running, we use a text view for the button isntead,
+                    // forcing a correct reading wuthout losing the original layout.
                     if UIAccessibility.isVoiceOverRunning {
                         Text("Add Project")
                     } else {
@@ -81,9 +82,7 @@ struct ProjectsView: View {
             }) {
                 Image(systemName: "archivebox")
             }.sheet(isPresented: $isShowingClosedTasks) {
-                
                 ClosedProjectsView(showClosedProjects: true)
-                
             }}
     }
     
@@ -93,7 +92,7 @@ struct ProjectsView: View {
                 if projects.wrappedValue.isEmpty {
                     ProjectsEmptyView()
                 } else {
-                    ProjectsList
+                    projectsList
                 }
             }
             .navigationTitle(showClosedProjects ? "Closed Tasks" : "Tasks")

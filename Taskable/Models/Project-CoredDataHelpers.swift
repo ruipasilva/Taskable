@@ -30,7 +30,6 @@ extension Project {
     }
     
     var projectItemsDefaultSorted: [Item] {
-        
         projectItems.sorted { first, second in
             if first.completed == false {
                 if second.completed == true {
@@ -55,7 +54,6 @@ extension Project {
     var completionAmount: Double {
         let originalItems = items?.allObjects as? [Item] ?? []
         guard originalItems.isEmpty == false else { return 0 }
-        
         let completedItems = originalItems.filter(\.completed)
         return Double(completedItems.count) / Double(originalItems.count)
     }

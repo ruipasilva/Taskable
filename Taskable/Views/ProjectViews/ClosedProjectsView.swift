@@ -26,7 +26,7 @@ struct ClosedProjectsView: View {
                 ForEach(projects.wrappedValue) { project in
                     Section(header: ProjectHeaderView(project: project)) {
                         ForEach(project.projectItems) { item in
-                            ItemRowView(project: project, item: item)
+                            ItemRowView(item: item)
                         }
                     }
                 }

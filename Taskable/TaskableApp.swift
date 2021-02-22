@@ -16,15 +16,18 @@ struct TaskableApp: App {
         let dataController = DataController()
         _dataController = StateObject(wrappedValue: dataController)
     }
-    
-    
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, dataController.container.viewContext) // swiftUI to read coreData Values
-                .environmentObject(dataController) // our own code to read coreData values - whatever we did by hand, saving, writing, etc
-                .onReceive(NotificationCenter.default.publisher(for:UIApplication.willResignActiveNotification), perform: save) // This on receive will save our item no matter what happens even if you kill the app without calling the onDisappear method
+                // swiftUI to read coreData Values
+                .environment(\.managedObjectContext, dataController.container.viewContext)
+                // our own code to read coreData values - whatever we did by hand, saving, writing, etc
+                .environmentObject(dataController)
+                // Automatically save when we detect that we are no longer the foreground app.
+                // Use this rather then the scene phase API so we can port to macOS, where scene phase
+                // won't detect our aoo losing focus as of macOS 11.1.
+                .onReceive(NotificationCenter.default.publisher(for:UIApplication.willResignActiveNotification), perform: save)
         }
     }
     func save(_ note: Notification) {
