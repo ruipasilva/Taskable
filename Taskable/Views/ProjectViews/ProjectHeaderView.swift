@@ -11,6 +11,8 @@ struct ProjectHeaderView: View {
     
     @ObservedObject var project: Project
     
+    @State private var isExpanded = false
+    
     var body: some View {
         NavigationLink(destination: ProjectEditView(project: project)) {
             HStack {
@@ -20,12 +22,8 @@ struct ProjectHeaderView: View {
                     
                     ProgressView(value: project.completionAmount)
                         .padding(.trailing)
-                        .accentColor(Color(project.projectColor))
-                    
+                        .accentColor(Color(project.projectColor))        
                 }
-                Image(systemName: "pencil")
-                    .imageScale(.large)
-                    .foregroundColor(.primary)
             }
         }
         .padding()

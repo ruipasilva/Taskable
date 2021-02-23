@@ -39,6 +39,16 @@
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "69BA759A25E43CCD00D8AD71"
+               BuildableName = "TaskableTests.xctest"
+               BlueprintName = "TaskableTests"
+               ReferencedContainer = "container:Taskable.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
