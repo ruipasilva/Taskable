@@ -14,19 +14,12 @@ struct ItemRowView: View {
     var icon: some View {
         if item.completed {
             return Image(systemName: "checkmark.circle")
-                .foregroundColor(Color(item.project?.projectColor ?? "Light Blue"))
-        } else if item.priority == 3 {
-            return Image(systemName: "exclamationmark.octagon")
-                .foregroundColor(.red)
-        } else if item.priority == 2 {
-            return Image(systemName: "exclamationmark.triangle")
-                .foregroundColor(.yellow)
-        } else if item.priority == 1 {
-            return Image(systemName: "exclamationmark.circle")
-                .foregroundColor(.green)
+                .foregroundColor(Color(item.project?.projectColor ?? "Light Blue").opacity(1))
+                .shadow(color: Color.black.opacity(0.2), radius: 5)
         } else {
-            return Image(systemName: "checkmark")
-                .foregroundColor(.clear)
+            return Image(systemName: "circle")
+                .foregroundColor(.secondary)
+                .shadow(color: Color.black.opacity(0.2), radius: 5)
         }
     }
     
@@ -49,7 +42,8 @@ struct ItemRowView: View {
             Label {
                 Text(item.itemTitle)
             } icon: {
-                icon.font(.title3)
+                icon
+                    .font(.title2)
             }
     
         }
