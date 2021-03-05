@@ -11,31 +11,37 @@ struct ClosedProjectsView: View {
     
     let showClosedProjects: Bool
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
     
     let projects: FetchRequest<Project>
     
     init(showClosedProjects: Bool) {
         self.showClosedProjects = showClosedProjects
         
-        projects = FetchRequest<Project>(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.creationDate, ascending: false)], predicate: NSPredicate(format: "closed = %d", showClosedProjects))  }
-    
+        projects = FetchRequest<Project>(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.creationDate, ascending: false)], predicate: NSPredicate(format: "closed = %d", showClosedProjects))
+    }
     var body: some View {
+        
+        if projects.wrappedValue.isEmpty {
+            ClosedProjectsEmptyView()
+        } else {
         NavigationView {
             List {
                 ForEach(projects.wrappedValue) { project in
                     Section(header: ProjectHeaderView(project: project)) {
                         ForEach(project.projectItems) { item in
                             ItemRowView(item: item)
+                                .foregroundColor(.primary)
                         }
                     }
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            .navigationBarTitle("Closed Tasks", displayMode: .inline)
+            .navigationBarTitle("Archive", displayMode: .inline)
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
             })
+        }
         }
     }
 }

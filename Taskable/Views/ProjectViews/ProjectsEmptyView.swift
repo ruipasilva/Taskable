@@ -9,9 +9,17 @@ import SwiftUI
 
 struct ProjectsEmptyView: View {
     var body: some View {
-        Text("Please select something from the menu to begin")
-            .italic()
-            .foregroundColor(.secondary)
+        VStack(alignment: .center) {
+            Image("empty_state_projects")
+                .padding(.bottom, 20)
+            Text("Tap ‘+’ to add your first project.")
+                .font(.body)
+                .foregroundColor(.secondary)
+                .frame(width: 260, alignment: .center)
+                .multilineTextAlignment(.center)
+            
+        }
+        .offset(y: -20)
     }
 }
 

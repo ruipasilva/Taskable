@@ -32,7 +32,7 @@ struct ItemEditView: View {
             Form {
                 Section(header: Text("Basic Settings")) {
                     TextField("Item name", text: $title.onChange(update))
-                    TextField("Description", text: $detail.onChange(update))
+                    TextEditor(text: $detail.onChange(update))
                 }
                 Section(header: Text("Priority")) {
                     Picker("Priority", selection: $priority.onChange(update)) {
@@ -45,19 +45,9 @@ struct ItemEditView: View {
                     Toggle("Mark Completed", isOn: $completed.onChange(update))
                 }
             }
-            .navigationTitle("Edit Item")
+            .navigationBarTitle("Item Details", displayMode: .inline)
             .onDisappear(perform: dataController.save)
-            .toolbar {
-                ToolbarItem {
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        Text("Done")
-                    }
-                }
-            }
     }
-    
     func update() {
         item.project?.objectWillChange.send()
         item.title = title

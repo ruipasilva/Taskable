@@ -15,18 +15,28 @@ struct ProjectHeaderView: View {
     
     var body: some View {
         NavigationLink(destination: ProjectEditView(project: project)) {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(project.projectTitle)
-                        .foregroundColor(.secondary)
-                    
-                    ProgressView(value: project.completionAmount)
-                        .padding(.trailing)
-                        .accentColor(Color(project.projectColor))        
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(project.projectTitle)
+                            .foregroundColor(.primary)
+                            .font(.body)
+                            .fontWeight(.bold)
+                        Text("\(project.projectItems.count) items")
+                            .foregroundColor(.secondary)
+                    }
+                    Spacer()
+                    Image(systemName: "info.circle")
+                        .font(.headline)
                 }
+                ProgressView(value: project.completionAmount)
+                    
+                    .accentColor(Color(project.projectColor))
+                
             }
         }
         .padding()
+        .accessibilityLabel(project.label)
         .accessibilityElement(children: .combine)
     }
 }

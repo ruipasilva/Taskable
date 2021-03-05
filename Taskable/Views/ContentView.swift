@@ -17,30 +17,30 @@ struct ContentView: View {
                 .tag(HomeView.tag)
                 .tabItem {
                     Image(systemName: "house")
-                    Text("Home")
+                    Text("Overview")
                 }
             
             ProjectsView(showClosedProjects: false)
                 .tag(ProjectsView.openTag)
                 .tabItem {
                     Image(systemName: "list.bullet")
-                    Text("Open")
+                    Text("Projects")
                 }
             
-            ProjectsView(showClosedProjects: true)
-                .tag(ProjectsView.closedTag)
-                .tabItem {
-                    Image(systemName: "checkmark")
-                    Text("Closed")
-                }
-            
-            AwardsView()
-                .tag(AwardsView.tag)
-                .tabItem {
-                    Image(systemName: "rosette")
-                    Text("Awards")
-                }
-        }
+//            ProjectsView(showClosedProjects: true)
+//                .tag(ProjectsView.closedTag)
+//                .tabItem {
+//                    Image(systemName: "checkmark")
+//                    Text("Closed")
+//                }
+//            
+//            AwardsView()
+//                .tag(AwardsView.tag)
+//                .tabItem {
+//                    Image(systemName: "rosette")
+//                    Text("Awards")
+//                }
+        }.accentColor(Color("Tint"))
     }
 }
 

@@ -14,7 +14,7 @@ extension Item {
     }
     
     var itemTitle: String {
-        title ?? NSLocalizedString("New Item", comment: "Vreate a new item")
+        title ?? NSLocalizedString("New Item", comment: "Create a new item")
     }
     
     var itemDetail: String {
@@ -26,7 +26,7 @@ extension Item {
     }
     
     static var example: Item {
-        let controller = DataController(inMemory: true)
+        let controller = DataController.preview
         let viewContext = controller.container.viewContext
         
         let item = Item(context: viewContext)

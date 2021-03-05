@@ -9,7 +9,14 @@ import SwiftUI
 
 struct BetaCode: View {
     var body: some View {
+//        SearchNavigation(filteredText: $filteredText, search: search, cancel: cancel) {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+//        }
+    }
+    func search() {
+    }
+    
+    func cancel() {
     }
 }
 

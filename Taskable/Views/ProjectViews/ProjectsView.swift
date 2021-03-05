@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ProjectsView: View {
     
@@ -13,12 +14,13 @@ struct ProjectsView: View {
     static let closedTag: String? = "Closed"
     
     let showClosedProjects: Bool
-
+    
     @State private var isShowingClosedTasks = false
     @State private var isShowingSortOptions = false
-    @State private var itemsAreExpanded = false
-    
     @State private var sortOrder = Item.SortOrder.optimised
+    @State private var filteredText = ""
+    
+    let filteredItems = Project.self
     
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -32,10 +34,12 @@ struct ProjectsView: View {
     
     var projectsList: some View {
         List {
-            ForEach(projects.wrappedValue) { project in
+            //.filter... to add to future searchBar
+            ForEach(projects.wrappedValue.filter({filteredText.isEmpty ? true : $0.projectTitle.localizedCaseInsensitiveContains(filteredText)})) { project in
                 Section(header: ProjectHeaderView(project: project)) {
                     ForEach(project.projectItems(using: sortOrder)) { item in
                         ItemRowView(item: item)
+                            .foregroundColor(.primary)
                     }
                     .onDelete { offsets in
                         delete(offsets, from: project)
@@ -50,7 +54,6 @@ struct ProjectsView: View {
         }
         .listStyle(InsetGroupedListStyle())
     }
-    
     var toolBarItemTrailing: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             HStack {
@@ -62,8 +65,8 @@ struct ProjectsView: View {
                 }
                 Button(action: addProject) {
                     // In iOS 14.3 VoiceOver has a glitch that reads the label "Add Project as "Add"
-                    // no matter what accessibility label we give this toobal button when using a label
-                    // As a result, when VoiceOver is running, we use a text view for the button isntead,
+                    // no matter what accessibility label we give this toolbar button when using a label
+                    // As a result, when VoiceOver is running, we use a text view for the button instead,
                     // forcing a correct reading wuthout losing the original layout.
                     if UIAccessibility.isVoiceOverRunning {
                         Text("Add Project")
@@ -83,7 +86,8 @@ struct ProjectsView: View {
                 Image(systemName: "archivebox")
             }.sheet(isPresented: $isShowingClosedTasks) {
                 ClosedProjectsView(showClosedProjects: true)
-            }}
+            }
+        }
     }
     
     var body: some View {
@@ -95,22 +99,22 @@ struct ProjectsView: View {
                     projectsList
                 }
             }
-            .navigationTitle(showClosedProjects ? "Closed Tasks" : "Tasks")
+            .navigationTitle(showClosedProjects ? "Closed Projects" : "Projects")
             .toolbar {
                 toolBarItemTrailing
                 toolbarItemLeading
             }
-            .actionSheet(isPresented: $isShowingSortOptions) {
-                ActionSheet(title: Text("Sort items"), message: nil, buttons: [
-                    .default(Text("Priority")) { sortOrder = .optimised },
-                    .default(Text("Creation Date")) { sortOrder = .creationDate },
-                    .default(Text("Title")) { sortOrder = .title },
-                    .cancel()
-                ])
-            }
-            ProjectsEmptyView()
-            
         }
+        .actionSheet(isPresented: $isShowingSortOptions) {
+            ActionSheet(title: Text("Sort items"), message: nil, buttons: [
+                .default(Text("Priority")) { sortOrder = .optimised },
+                .default(Text("Creation Date")) { sortOrder = .creationDate },
+                .default(Text("Title")) { sortOrder = .title },
+                .cancel()
+            ])
+        }
+        .foregroundColor(Color("Tint"))
+        .edgesIgnoringSafeArea(.all)
     }
     
     func addProject() {
@@ -140,6 +144,13 @@ struct ProjectsView: View {
         }
         dataController.save()
     }
+    
+    func search() {
+    }
+    
+    func cancel() {
+    }
+    
 }
 
 struct ProjectsView_Previews: PreviewProvider {
@@ -147,3 +158,6 @@ struct ProjectsView_Previews: PreviewProvider {
         ProjectsView(showClosedProjects: false)
     }
 }
+//TextField("Type to Filter", text: $filteredText)
+
+//.filter({filteredText.isEmpty ? true : $0.projectTitle.localizedCaseInsensitiveContains(filteredText)})

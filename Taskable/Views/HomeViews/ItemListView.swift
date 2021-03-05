@@ -27,8 +27,12 @@ struct ItemListView: View {
             }
         }
     }
+    
     func itemsList(item: Item) -> some View {
-        VStack(alignment: .leading) {
+        HStack {
+            Image(systemName: "circle.fill")
+                .font(.caption)
+                .foregroundColor(Color(item.project?.projectColor ?? "grey"))
             Text(item.itemTitle)
                 .font(.title2)
                 .foregroundColor(.primary)
@@ -39,20 +43,15 @@ struct ItemListView: View {
                     .lineLimit(1)
                     .foregroundColor(.secondary)
             }
-            HStack {
-                Image(systemName: "circle.fill")
-                    .font(.caption)
-                    .foregroundColor(Color(item.project?.projectColor ?? "grey"))
-                Text(item.project?.projectTitle ?? "No Project")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            
+            Spacer()
+            Text(item.project?.projectTitle ?? "No Project")
+                .font(.body)
+                .foregroundColor(.secondary)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing)
         }
         .padding()
         .background(Color.secondaryGroupedBackground)
         .cornerRadius(10)
-        .shadow(color: Color.black.opacity(0.2), radius: 5)
     }
 }

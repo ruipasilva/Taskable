@@ -11,49 +11,74 @@ struct ProjectOverview: View {
     
     @ObservedObject var project: Project
     
+    @State private var sortOrder = Item.SortOrder.optimised
+    
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var managedObjectContext
     
     @EnvironmentObject var dataController: DataController
     
-    @State private var title: String
-    @State private var detail: String
-    @State private var color: String
-    
-    
-    @State private var showingDeleteConfirmation = false
-    
-    let colorColumns = [
-        GridItem(.adaptive(minimum: 44))
-    ]
-    
-    init(project: Project) {
-        self.project = project
-        
-        _title = State(wrappedValue: project.projectTitle)
-        _detail = State(wrappedValue: project.projectDetail)
-        _color = State(wrappedValue: project.projectColor)
-        
+    var projectHeader: some View {
+        VStack(alignment: .leading) {
+            Text(project.projectTitle)
+                .font(.title)
+                .foregroundColor(.primary)
+            
+            Text("\(project.projectItems.count) items")
+                .font(.caption)
+                .foregroundColor(.secondary)
+            
+            Text("\(project.projectDetail)")
+                .padding(.top, 2)
+            
+            ProgressView(value: project.completionAmount)
+                .accentColor(Color(project.projectColor))
+        }
+        .padding()
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(project.label)
+        .padding(.bottom, 1)
     }
     
-    var body: some View {
-        Form {
-                List {
-                    ForEach(project.projectItems) { items in
+    var projectOverviewList: some View {
+        VStack {
+            List {
+                ForEach (project.projectItems(using: sortOrder)) { items in
+                    HStack {
+                        if items.completed == true {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(Color(items.project?.color ?? "Light Blue").opacity(1))
+                                .shadow(color: Color.black.opacity(0.2), radius: 5)
+                                .padding(.trailing, 1)
+                        } else {
+                            Image(systemName: "circle")
+                                .foregroundColor(Color(items.project?.color ?? "Light Blue").opacity(1))
+                                .shadow(color: Color.black.opacity(0.2), radius: 5)
+                                .padding(.trailing, 1)
+                        }
                         Text("\(items.title ?? "New Item")")
                     }
                 }
-            
+                .onDelete { offsets in
+                    delete(offsets, from: project)
+                }
+                Button {
+                    addItem(to: project)
+                } label: {
+                    Label("Add New Item", systemImage: "plus")
+                }
+            }
+        }.listStyle(InsetGroupedListStyle())
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            projectHeader
+            projectOverviewList
         }
+        .padding(.top)
         .background(Color.systemGroupedBackground.ignoresSafeArea())
         .navigationBarTitle("Project Overview", displayMode: .inline)
-        .onDisappear(perform: update)
-        
-    }
-    func update() {
-        project.title = title
-        project.detail = detail
-        project.color = color
-        dataController.save()
     }
     
     func delete() {
@@ -61,27 +86,23 @@ struct ProjectOverview: View {
         presentationMode.wrappedValue.dismiss()
     }
     
-    func colorButton(for item: String) -> some View {
-        ZStack {
-            Color(item)
-                .aspectRatio(1, contentMode: .fit)
-                .cornerRadius(10)
-            
-            if item == color {
-                Image(systemName: "checkmark.circle")
-                    .foregroundColor(.white)
-                    .font(.largeTitle)
-            }
+    func addItem(to project: Project) {
+        withAnimation {
+            let item = Item(context: managedObjectContext)
+            item.project = project
+            item.creationDate = Date()
+            dataController.save()
         }
-        .onTapGesture {
-            color = item
-            update()
+    }
+    
+    func delete(_ offsets: IndexSet, from project: Project) {
+        let allItems = project.projectItems(using: sortOrder)
+        
+        for offset in offsets {
+            let item = allItems[offset]
+            dataController.delete(item)
         }
-        .accessibilityElement(children: .ignore)
-        .accessibilityAddTraits(
-            item == color ? [.isButton, .isSelected] : .isButton
-        )
-        .accessibilityLabel(LocalizedStringKey(item))
+        dataController.save()
     }
 }
 

@@ -22,12 +22,19 @@ struct HomeEmptyView: View {
     }
     
     var body: some View {
-        Text("Please add projects and items to find more info here.")
-            .italic()
-            .foregroundColor(.secondary)
-            .multilineTextAlignment(.center)
-            .toolbar {
-                toolBarItemTrailing
+        NavigationView {
+            VStack(alignment: .center) {
+                Image("empty_state_overview")
+                    .padding(.bottom, 20)
+                Text("Your progress will appear here once you add Projects and Items.")
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                    .frame(width: 260, alignment: .center)
+                    .multilineTextAlignment(.center)
+                    
             }
+            .offset(y: -20)
+            .navigationTitle("Overview")
+        }
     }
 }

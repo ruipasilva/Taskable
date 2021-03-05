@@ -32,17 +32,6 @@ struct ProjectEditView: View {
         _detail = State(wrappedValue: project.projectDetail)
         _color = State(wrappedValue: project.projectColor)
     }
-    
-    var toolBarItemDone: some ToolbarContent {
-        ToolbarItem {
-            Button {
-                presentationMode.wrappedValue.dismiss()
-            } label: {
-                Text("Done")
-            }
-        }
-    }
-     
     var body: some View {
         Form {
             Section(header: Text("Basic settings")) {
@@ -56,28 +45,26 @@ struct ProjectEditView: View {
                     }
                 }
                 .padding(.vertical, 4)
+                .onTapGesture(perform: { update() } )
             }
             
             Section(footer: Text("Closing a project moves it from Open to Closed; deleting it removes the project entirely.")) {
-                Button(project.closed ? "Reopen this project" : "Close this project") {
+                Button(project.closed ? "Reopen project" : "Archive project") {
                     project.closed.toggle()
                     update()
                 }
-                Button("Delete this project") {
+                .foregroundColor(.blue)
+                Button("Delete project") {
                     showingDeleteConfirmation.toggle()
                 }
                 .accentColor(.red)
             }
         }
-        .navigationTitle("Edit Project")
-        .onDisappear(perform: update)
+        .navigationBarTitle("Edit Project", displayMode: .inline)
+        .onDisappear(perform: {update()})
             .alert(isPresented: $showingDeleteConfirmation) {
                 Alert(title: Text("Delete Project?"), message: Text("Are you sure you want to delete this project? You will also delete all the items it contains."), primaryButton: .destructive(Text("Delete"), action: delete), secondaryButton: .cancel())
             }
-        .toolbar {
-            toolBarItemDone
-        }
-        
     }
     func update() {
         project.title = title
@@ -118,6 +105,6 @@ struct ProjectEditView: View {
 
 struct ProjectEditView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectEditView(project: Project.example )
+        ProjectEditView(project: Project.example)
     }
 }

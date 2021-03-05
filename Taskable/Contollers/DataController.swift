@@ -12,11 +12,9 @@ import SwiftUI
 /// count fetch Requests and dealing with sample data
 class DataController: ObservableObject {
     
-    
     /// This is the lone CloudKit container used to store all our data.
     let container: NSPersistentCloudKitContainer
 //    This is responsible for loading and managing local data using Core Data, but also synchronising that data with iCloud so that all a user’s devices get to share the same data for our app.
-    
     
     /// Initialises a data controller, either in memory(for temporary use such as testing and previewing),
     /// of on permanent storage(for use in regular app runs)
@@ -24,7 +22,7 @@ class DataController: ObservableObject {
     /// Defaults to permanent store.
     /// - Parameter inMemory: Whether to store this data in temporary memory or not
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "Main")
+        container = NSPersistentCloudKitContainer(name: "Main", managedObjectModel: Self.model)
         
         //For testing and previewing purposes, we create a temporary, in-memory database
         //by writing to /dev/null so our data is destroyed after the app finishes running
@@ -48,6 +46,17 @@ class DataController: ObservableObject {
         }
         return dataController
     }()
+    
+    static let model: NSManagedObjectModel = {
+        guard let url = Bundle.main.url(forResource: "Main", withExtension: "momd") else {
+            fatalError("Fatal to locate model file.")
+        }
+        guard let managedObjectModel = NSManagedObjectModel(contentsOf: url) else {
+            fatalError("Failed to load model file.")
+        }
+        return managedObjectModel
+    }()
+    
     
     /// Creates example projects and items to make manual testing easier.
     /// - Throws: An NSError sent from calling save() on the NSManagedObjectContext.

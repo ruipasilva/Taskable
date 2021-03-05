@@ -23,7 +23,7 @@ struct HomeView: View {
     }
     
     init() {
-        // Contruct a fetch request to show the 10 highest-priority,
+        // Construct a fetch request to show the 10 highest-priority,
         // incomplete items from open projects
         let request: NSFetchRequest<Item> = Item.fetchRequest()
         
@@ -50,13 +50,13 @@ struct HomeView: View {
             }
         }
     }
-
+    
     
     var body: some View {
-        NavigationView {
-            if _projects.wrappedValue.isEmpty {
-                HomeEmptyView()
-            } else {
+        if _projects.wrappedValue.isEmpty {
+            HomeEmptyView()
+        } else {
+            NavigationView {
                 ScrollView {
                     VStack(alignment: .leading) {
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -76,10 +76,10 @@ struct HomeView: View {
                     }
                 }
                 .background(Color.systemGroupedBackground.ignoresSafeArea())
-                .navigationTitle("Home")
-                .toolbar {
-                    toolBarItemTrailing
-                }
+                .navigationTitle("Overview")
+                //                .toolbar {
+                //                    toolBarItemTrailing
+                //                }
             }
         }
     }

@@ -13,13 +13,11 @@ struct ItemRowView: View {
     
     var icon: some View {
         if item.completed {
-            return Image(systemName: "checkmark.circle")
+            return Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(Color(item.project?.projectColor ?? "Light Blue").opacity(1))
-                .shadow(color: Color.black.opacity(0.2), radius: 5)
         } else {
             return Image(systemName: "circle")
                 .foregroundColor(.secondary)
-                .shadow(color: Color.black.opacity(0.2), radius: 5)
         }
     }
     
@@ -45,7 +43,6 @@ struct ItemRowView: View {
                 icon
                     .font(.title2)
             }
-    
         }
         .accessibilityLabel(label)
     }
