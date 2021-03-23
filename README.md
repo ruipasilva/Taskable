@@ -22,4 +22,6 @@ I wanted to practice passing data through views, explore different and multiple 
 * SwiftUI
 * CoreData
 
+## Contact
 
+Please Visit ruisilva.xyz to reach out.
