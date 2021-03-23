@@ -23,6 +23,11 @@ I wanted to practice passing data through views, explore different and multiple 
 
 * SwiftUI
 * CoreData
+* Accessibility 
+  * English
+  * Portuguese
+  * Hungarian
+* Fully Supports Dark Mode and High Contrast Profiles
 
 Version 0.1.0 (2) | Version 0.1.0 (3) 
 ------------ | -------------
