@@ -21,6 +21,5 @@ I wanted to practice passing data through views, explore different and multiple 
 
 * SwiftUI
 * CoreData
-* 
 
 
