@@ -10,6 +10,8 @@ Taskable helps people keep track of projects and goals. The Overview tab gives t
 
 This app was initially created following the UltimatePortfolio App by Paul Hudson @[Hacking With Swift](https://www.hackingwithswift.com) and then I've added a few extra features and changed the original design.
 
+It's currently available on Testflight getting tested by a number of people. [Reach Out]() if you'd like to test it. Please bear in mind it's not a finished product and I'll submiting regular updates. You might encounter a bug occasionally but the app can used without any limitations.
+
 
 ## My Goal
 
@@ -21,6 +23,26 @@ I wanted to practice passing data through views, explore different and multiple 
 
 * SwiftUI
 * CoreData
+
+Version 0.1.0 (2) | Version 0.1.0 (3) 
+------------ | -------------
+Add Projects | Tap circle to mark as completed
+Add Items to any project | Updates Project header design
+Change project color | Color added to Project Header
+Track completion progress | Access your projects from the Overview Tab
+Archive and/ or delete | Textfields use improved -  A "x" was added to delete the entire text in one go, rather than using the keyboard. 
+Check archived projects | Bug fixes
+Add project and/or item descriptions |
+Set priority |
+Overview Tab |
+ |
+
+*Currently working on / Ideas and feedback from users*
+* Bug fixes
+* Notifications
+* Choose date
+* iCloud Integration
+* Core Haptics
 
 ## Contact
 
