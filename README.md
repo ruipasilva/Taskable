@@ -24,4 +24,4 @@ I wanted to practice passing data through views, explore different and multiple 
 
 ## Contact
 
-Please Visit ruisilva.xyz to reach out.
+Please Visit http://www.ruisilva.xyz to reach out.
