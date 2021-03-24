@@ -10,7 +10,7 @@ Taskable helps people keep track of projects and goals. The Overview tab gives t
 
 This app was initially created following the UltimatePortfolio App by Paul Hudson @[Hacking With Swift](https://www.hackingwithswift.com) and then I've added a few extra features and changed the original design.
 
-It's currently available on Testflight getting tested by a number of people. [Reach Out]() if you'd like to test it. Please bear in mind it's not a finished product and I'll be submiting regular updates. You might encounter bugs occasionally but the app can used without any limitations. The app might look slightly different from the preview above.
+It's currently available on Testflight getting tested by a number of people. [Reach Out](http://ruisilva.xyz) if you'd like to test it. Please bear in mind it's not a finished product and I'll be submiting regular updates. You might encounter bugs occasionally but the app can used without any limitations. The app might look slightly different from the preview above.
 
 
 ## My Goal
