@@ -32,10 +32,10 @@ I wanted to practice passing data through views, explore different and multiple 
 Version 0.1.0 (2) | Version 0.1.0 (3) 
 ------------ | -------------
 Add Projects | Tap circle to mark as completed
-Add Items to a project | Updates Project header design
+Add Items to a project | Updated Project header design
 Change project color | Color added to Project Header
 Track completion progress | Access your projects from the Overview Tab
-Archive and/ or delete | Textfields use improved -  A "x" was added to delete the entire text in one go, rather than using the keyboard. 
+Archive and/ or delete | Textfields improved: A "x" was added to delete the entire text in one go, rather than using the keyboard. 
 Check archived projects | Bug fixes
 Add project and/or item descriptions |
 Set priority |
