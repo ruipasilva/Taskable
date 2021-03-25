@@ -17,7 +17,6 @@ struct ProjectsEmptyView: View {
                 .foregroundColor(.secondary)
                 .frame(width: 260, alignment: .center)
                 .multilineTextAlignment(.center)
-            
         }
         .offset(y: -20)
     }

@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ClosedProjectsEmptyView: View {
+    
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -21,14 +22,13 @@ struct ClosedProjectsEmptyView: View {
                     .foregroundColor(.secondary)
                     .frame(width: 260, alignment: .center)
                     .multilineTextAlignment(.center)
-                    
             }
             .offset(y: -20)
             .navigationBarTitle("Archive", displayMode: .inline)
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
             })
-        }
+        }.accentColor(Color("Tint"))
     }
 }
 

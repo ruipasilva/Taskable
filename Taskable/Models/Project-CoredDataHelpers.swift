@@ -40,13 +40,11 @@ extension Project {
                     return false
                 }
             }
-            
             if first.priority > second.priority {
                 return true
             } else if first.priority < second.priority {
                 return false
             }
-            
             return first.itemCreationDate < second.itemCreationDate
         }
     }

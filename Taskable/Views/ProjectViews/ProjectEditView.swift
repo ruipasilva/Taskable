@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProjectEditView: View {
     
-    let project: Project
+    @ObservedObject var project: Project
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -34,10 +34,15 @@ struct ProjectEditView: View {
     }
     var body: some View {
         Form {
-            Section(header: Text("Basic settings")) {
+            Section {
                 TextField("Project name", text: $title)
-                TextField("Description of this project", text: $detail)
+                    .modifier(TextFieldClearButton(text: $title))
             }
+            Section(header: Text("Notes")) {
+                TextEditor(text: $detail)
+                    .modifier(TextFieldClearButton(text: $detail))
+            }
+            
             Section(header: Text("Project Color")) {
                 LazyVGrid(columns: colorColumns) {
                     ForEach(Project.colors, id: \.self) { item in
@@ -45,9 +50,8 @@ struct ProjectEditView: View {
                     }
                 }
                 .padding(.vertical, 4)
-                .onTapGesture(perform: { update() } )
+                .onTapGesture(perform: { dataController.save()} )
             }
-            
             Section(footer: Text("Closing a project moves it from Open to Closed; deleting it removes the project entirely.")) {
                 Button(project.closed ? "Reopen project" : "Archive project") {
                     project.closed.toggle()
@@ -67,6 +71,7 @@ struct ProjectEditView: View {
             }
     }
     func update() {
+        project.objectWillChange.send()
         project.title = title
         project.detail = detail
         project.color = color
@@ -100,7 +105,6 @@ struct ProjectEditView: View {
         )
         .accessibilityLabel(LocalizedStringKey(item))
     }
-    
 }
 
 struct ProjectEditView_Previews: PreviewProvider {

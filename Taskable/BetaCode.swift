@@ -12,6 +12,8 @@ struct BetaCode: View {
 //        SearchNavigation(filteredText: $filteredText, search: search, cancel: cancel) {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
 //        }
+        
+//            .filter({filteredText.isEmpty ? true : $0.projectTitle.localizedCaseInsensitiveContains(filteredText)})
     }
     func search() {
     }

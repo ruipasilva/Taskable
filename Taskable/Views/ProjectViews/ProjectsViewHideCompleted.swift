@@ -8,8 +8,7 @@
 import SwiftUI
 import UIKit
 
-
-struct ProjectsView: View {
+struct PProjectsViewHideCompleted: View {
     
     static let openTag: String? = "Open"
     static let closedTag: String? = "Closed"
@@ -36,16 +35,17 @@ struct ProjectsView: View {
         
         projects = FetchRequest<Project>(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.creationDate, ascending: false)], predicate: NSPredicate(format: "closed = %d", showClosedProjects))
     }
-   
+    
     var projectsList: some View {
         List {
             //.filter... to add to future searchBar
-            ForEach(projects.wrappedValue) { project in
+            ForEach(projects.wrappedValue.filter({filteredText.isEmpty ? true : $0.projectTitle.localizedCaseInsensitiveContains(filteredText)})) { project in
                 Section(header: ProjectHeaderView(project: project)) {
                     ForEach(project.projectItems(using: sortOrder)) { item in
                         ItemRowView(item: item)
                             .foregroundColor(.primary)
                     }
+                    
                     .onDelete { offsets in
                         delete(offsets, from: project)
                     }
@@ -59,11 +59,16 @@ struct ProjectsView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        
     }
     var toolBarItemTrailing: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             HStack {
+                Button(action: {
+                    showingCompleted.toggle()
+                }) {
+                    Text(showingCompleted ? "Show Completed" : "Hide Completed")
+                }
+                .disabled(projects.wrappedValue.isEmpty)
                 
                 Button {
                     isShowingSortOptions.toggle()
@@ -77,7 +82,7 @@ struct ProjectsView: View {
                     // In iOS 14.3 VoiceOver has a glitch that reads the label "Add Project as "Add"
                     // no matter what accessibility label we give this toolbar button when using a label
                     // As a result, when VoiceOver is running, we use a text view for the button instead,
-                    // forcing a correct reading without losing the original layout.
+                    // forcing a correct reading wuthout losing the original layout.
                     if UIAccessibility.isVoiceOverRunning {
                         Text("Add Project")
                     } else {
@@ -106,7 +111,9 @@ struct ProjectsView: View {
             Group {
                 if projects.wrappedValue.isEmpty {
                     ProjectsEmptyView()
-                }  else {
+                } else  if showingCompleted == true {
+                    projectsList
+                } else if showingCompleted == false {
                     projectsList
                 }
             }
@@ -173,7 +180,7 @@ struct ProjectsView: View {
     
 }
 
-struct ProjectsView_Previews: PreviewProvider {
+struct ProjectsViewHideCompleted_Previews: PreviewProvider {
     static var previews: some View {
         ProjectsView(showClosedProjects: false)
     }

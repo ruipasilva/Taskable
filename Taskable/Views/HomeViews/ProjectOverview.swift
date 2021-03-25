@@ -18,46 +18,69 @@ struct ProjectOverview: View {
     
     @EnvironmentObject var dataController: DataController
     
+    @State private var title: String
+    
+    init(project: Project) {
+        self.project = project
+        _title = State(wrappedValue: project.projectTitle)
+    }
+    
+    
     var projectHeader: some View {
-        VStack(alignment: .leading) {
-            Text(project.projectTitle)
-                .font(.title)
-                .foregroundColor(.primary)
-            
-            Text("\(project.projectItems.count) items")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            Text("\(project.projectDetail)")
-                .padding(.top, 2)
-            
+        HStack {
             ProgressView(value: project.completionAmount)
+                .progressViewStyle(GaugeProgressStyle(project: project))
                 .accentColor(Color(project.projectColor))
+                .frame(width: 20, height: 20)
+                .padding(.trailing, 6)
+            VStack(alignment: .leading) {
+                TextField("Title", text: $title.onChange(update))
+                    .font(.title)
+                    .foregroundColor(.primary)
+                
+                Text("\(project.projectItems.count) items")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
         .padding()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(project.label)
         .padding(.bottom, 1)
+        
     }
     
     var projectOverviewList: some View {
         VStack {
             List {
-                ForEach (project.projectItems(using: sortOrder)) { items in
-                    HStack {
-                        if items.completed == true {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(Color(items.project?.color ?? "Light Blue").opacity(1))
-                                .shadow(color: Color.black.opacity(0.2), radius: 5)
-                                .padding(.trailing, 1)
-                        } else {
-                            Image(systemName: "circle")
-                                .foregroundColor(Color(items.project?.color ?? "Light Blue").opacity(1))
-                                .shadow(color: Color.black.opacity(0.2), radius: 5)
-                                .padding(.trailing, 1)
+                ForEach (project.projectItems(using: sortOrder)) { item in
+                    NavigationLink(destination: ItemEditView(item: item)) {
+                        Label {
+                            Text("\(item.title ?? "New Item")")
+                        } icon : {
+                            if item.completed == true {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .resizable()
+                                    .frame(width: 18, height: 18)
+                                    .foregroundColor(Color(item.project?.color ?? "Light Blue").opacity(1))
+                                    .padding(.trailing, 1)
+                            } else {
+                                Image(systemName: "circle")
+                                    .resizable()
+                                    .frame(width: 18, height: 18)
+                                    .foregroundColor(.secondary)
+                                    .padding(.trailing, 1)
+                            }
                         }
-                        Text("\(items.title ?? "New Item")")
-                    }
+                        
+                        .onTapGesture(perform: {
+                            withAnimation {
+                                item.project?.objectWillChange.send()
+                                item.completed.toggle()
+                                dataController.save()
+                            }
+                        })
+                        }
                 }
                 .onDelete { offsets in
                     delete(offsets, from: project)
@@ -65,11 +88,12 @@ struct ProjectOverview: View {
                 Button {
                     addItem(to: project)
                 } label: {
-                    Label("Add New Item", systemImage: "plus")
+                    Text("Add Item")
                 }
             }
         }.listStyle(InsetGroupedListStyle())
     }
+    
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -81,10 +105,6 @@ struct ProjectOverview: View {
         .navigationBarTitle("Project Overview", displayMode: .inline)
     }
     
-    func delete() {
-        dataController.delete(project)
-        presentationMode.wrappedValue.dismiss()
-    }
     
     func addItem(to project: Project) {
         withAnimation {
@@ -102,6 +122,12 @@ struct ProjectOverview: View {
             let item = allItems[offset]
             dataController.delete(item)
         }
+        dataController.save()
+    }
+    
+    func update() {
+        project.objectWillChange.send()
+        project.title = title
         dataController.save()
     }
 }

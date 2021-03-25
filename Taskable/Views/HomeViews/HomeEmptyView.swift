@@ -11,6 +11,7 @@ struct HomeEmptyView: View {
     
     @EnvironmentObject var dataController: DataController
     
+    /// This trailing app adds a button that creates sample data for testing
     var toolBarItemTrailing: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             HStack {
@@ -30,8 +31,7 @@ struct HomeEmptyView: View {
                     .font(.body)
                     .foregroundColor(.secondary)
                     .frame(width: 260, alignment: .center)
-                    .multilineTextAlignment(.center)
-                    
+                    .multilineTextAlignment(.center)     
             }
             .offset(y: -20)
             .navigationTitle("Overview")

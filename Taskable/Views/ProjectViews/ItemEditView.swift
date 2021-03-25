@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ItemEditView: View {
     
-    let item: Item
+    @ObservedObject var item: Item
     
     @EnvironmentObject var dataController: DataController //access to data controller to save changes as needed
     
@@ -30,9 +30,15 @@ struct ItemEditView: View {
     
     var body: some View {
             Form {
-                Section(header: Text("Basic Settings")) {
+                Section {
                     TextField("Item name", text: $title.onChange(update))
+                        .modifier(TextFieldClearButton(text: $title.onChange(update)))
+                     
+                }
+                Section(header: Text("Notes")) {
                     TextEditor(text: $detail.onChange(update))
+                        .modifier(TextFieldClearButton(text: $detail.onChange(update)))
+                        .lineLimit(4)
                 }
                 Section(header: Text("Priority")) {
                     Picker("Priority", selection: $priority.onChange(update)) {
@@ -42,11 +48,11 @@ struct ItemEditView: View {
                     }.pickerStyle(SegmentedPickerStyle())
                 }
                 Section {
-                    Toggle("Mark Completed", isOn: $completed.onChange(update))
+                    Toggle("Mark as completed", isOn: $completed.onChange(update))
                 }
             }
             .navigationBarTitle("Item Details", displayMode: .inline)
-            .onDisappear(perform: dataController.save)
+            .onDisappear(perform: {update()})
     }
     func update() {
         item.project?.objectWillChange.send()
@@ -54,6 +60,7 @@ struct ItemEditView: View {
         item.detail = detail
         item.priority = Int16(priority)
         item.completed = completed
+        dataController.save()
     }
 }
 

@@ -12,6 +12,7 @@ struct ClosedProjectsView: View {
     let showClosedProjects: Bool
     
     @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.managedObjectContext) var managedObjectContext
     
     let projects: FetchRequest<Project>
     
@@ -42,7 +43,8 @@ struct ClosedProjectsView: View {
                 presentationMode.wrappedValue.dismiss()
             })
         }
-        }
+        .accentColor(Color("Tint"))
+    }
     }
 }
 

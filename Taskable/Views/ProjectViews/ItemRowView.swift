@@ -11,10 +11,21 @@ struct ItemRowView: View {
     
     @ObservedObject var item: Item
     
+    @EnvironmentObject var dataController: DataController
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @State var title: String
+    
+    init(item: Item) {
+        self.item = item
+        _title = State(wrappedValue: item.itemTitle)
+    }
+    
     var icon: some View {
         if item.completed {
             return Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(Color(item.project?.projectColor ?? "Light Blue").opacity(1))
+            
         } else {
             return Image(systemName: "circle")
                 .foregroundColor(.secondary)
@@ -42,14 +53,30 @@ struct ItemRowView: View {
             } icon: {
                 icon
                     .font(.title2)
+                    .onTapGesture(perform: {
+                    item.completed.toggle()
+                        update()
+                    })
+                    .onAppear(perform: {
+                        update()
+                    })
             }
+            
         }
         .accessibilityLabel(label)
     }
-}
-
-struct ItemRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemRowView(item: Item.example)
+    
+    func update() {
+        withAnimation {
+        item.project?.objectWillChange.send()
+        item.title = title
+        dataController.save()
+        }
     }
 }
+
+//struct ItemRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ItemRowView(item: Item.example)
+//    }
+//}

@@ -41,6 +41,7 @@ struct HomeView: View {
         items = FetchRequest(fetchRequest: request)
     }
     
+    /// This trailing app adds a button that creates sample data for testing
     var toolBarItemTrailing: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             HStack {
@@ -50,7 +51,6 @@ struct HomeView: View {
             }
         }
     }
-    
     
     var body: some View {
         if _projects.wrappedValue.isEmpty {
@@ -69,7 +69,7 @@ struct HomeView: View {
                             .fixedSize(horizontal: false, vertical: true)
                         }
                         VStack(alignment: .leading) {
-                            ItemListView(title: "Up next", items: items.wrappedValue.prefix(3))
+                            ItemListView(title: "High Priority", items: items.wrappedValue.prefix(3))
                             ItemListView(title: "More to explore", items: items.wrappedValue.dropFirst(3))
                         }
                         .padding(.horizontal)
@@ -77,12 +77,14 @@ struct HomeView: View {
                 }
                 .background(Color.systemGroupedBackground.ignoresSafeArea())
                 .navigationTitle("Overview")
-                //                .toolbar {
-                //                    toolBarItemTrailing
-                //                }
+                // .toolbar {
+                //      toolBarItemTrailing
+                // }
             }
         }
     }
+    
+    
 }
 
 struct HomeView_Previews: PreviewProvider {
@@ -90,8 +92,3 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
-
-//Button("Add Tasks") {
-//    dataController.deleteAll()
-//    try? dataController.createSampleData()
-//}

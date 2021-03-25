@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewProjectView: View {
     
-    let project: Project
+    @ObservedObject var project: Project
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -38,7 +38,6 @@ struct NewProjectView: View {
                 TextField("Project Name", text: $title.onChange(update))
                 TextField("Project Description", text: $detail.onChange(update))
             }
-            
             Section(header: Text("Project Color")) {
                 LazyVGrid(columns: colorColumns) {
                     ForEach(Project.colors, id: \.self) { item in
@@ -79,7 +78,6 @@ struct NewProjectView: View {
                 }
             }
         }
-
     }
     
     func update() {

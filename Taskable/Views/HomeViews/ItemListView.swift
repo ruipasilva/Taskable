@@ -17,7 +17,7 @@ struct ItemListView: View {
             EmptyView()
         } else {
             Text(title)
-                .font(.headline)
+                .font(.title3)
                 .foregroundColor(.secondary)
                 .padding(.top)
             ForEach(items) { item in
@@ -30,25 +30,24 @@ struct ItemListView: View {
     
     func itemsList(item: Item) -> some View {
         HStack {
-            Image(systemName: "circle.fill")
-                .font(.caption)
-                .foregroundColor(Color(item.project?.projectColor ?? "grey"))
-            Text(item.itemTitle)
-                .font(.title2)
-                .foregroundColor(.primary)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            if item.itemDetail.isEmpty == false {
-                Text(item.itemDetail)
+            VStack {
+                Image(systemName: "circle.fill")
+                    .font(.caption)
+                    .foregroundColor(Color(item.project?.projectColor ?? "grey"))
+                    .unredacted()
+            }
+            VStack(alignment: .leading) {
+                Text(item.itemTitle)
+                    .font(.title2)
+                    .foregroundColor(.primary)
                     .lineLimit(1)
+                
+                Text(item.project?.projectTitle ?? "No Project")
+                    .font(.body)
                     .foregroundColor(.secondary)
+                    .padding(.trailing)
             }
             Spacer()
-            Text(item.project?.projectTitle ?? "No Project")
-                .font(.body)
-                .foregroundColor(.secondary)
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.trailing)
         }
         .padding()
         .background(Color.secondaryGroupedBackground)

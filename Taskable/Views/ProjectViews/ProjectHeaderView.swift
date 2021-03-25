@@ -11,34 +11,47 @@ struct ProjectHeaderView: View {
     
     @ObservedObject var project: Project
     
+    @EnvironmentObject var dataController: DataController
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
     @State private var isExpanded = false
     
+    @State var completion: Double
+    
+    init(project: Project) {
+        self.project = project
+        _completion = State(wrappedValue: project.completionAmount)
+    }
+    
     var body: some View {
-        NavigationLink(destination: ProjectEditView(project: project)) {
-            VStack {
+        HStack {
+                ProgressView(value: project.completionAmount)
+                    .progressViewStyle(GaugeProgressStyle(project: project))
+                    .accentColor(Color(project.projectColor))
+                    .frame(width: 20, height: 20)
+                    .padding(.trailing, 6)
+            NavigationLink(destination: ProjectEditView(project: project)) {
                 HStack {
-                    VStack(alignment: .leading) {
-                        Text(project.projectTitle)
-                            .foregroundColor(.primary)
-                            .font(.body)
-                            .fontWeight(.bold)
-                        Text("\(project.projectItems.count) items")
-                            .foregroundColor(.secondary)
-                    }
+                    
+                    Text(project.projectTitle)
+                        .foregroundColor(.primary)
+                        .font(.body)
+                        .fontWeight(.bold)
                     Spacer()
                     Image(systemName: "info.circle")
                         .font(.headline)
                 }
-                ProgressView(value: project.completionAmount)
-                    
-                    .accentColor(Color(project.projectColor))
-                
             }
         }
         .padding()
         .accessibilityLabel(project.label)
         .accessibilityElement(children: .combine)
     }
+    
+    func update() {
+        dataController.save()
+    }
+    
 }
 struct ProjectHeaderView_Previews: PreviewProvider {
     static var previews: some View {
