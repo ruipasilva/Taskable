@@ -22,6 +22,7 @@ I wanted to practice passing data through views, explore different and multiple 
 ## Technologies
 
 * SwiftUI
+* Combine
 * CoreData
 * Accessibility 
   * English
